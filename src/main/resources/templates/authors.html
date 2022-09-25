@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="mb-5">Authors</h2>
+    <div class="row">
+        <div class="col-xl-6">
+            <a th:href="@{/authors/create}" class="btn btn-primary"><i
+                    class="fas fa-user-plus"></i> Add new author</a>
+            <a th:href="@{/logout}" class="btn btn-primary " sec:authorize="isAuthenticated()"><i
+                    class="fas fa-sign-out-alt"></i> Logout </a>
+            <a th:href="@{/login}" class="btn btn-primary " sec:authorize="isAnonymous()"><i class="fas fa-key"></i>
+                Login </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <table>
+                <thead>
+                <tr>
+                    <th>Last name</th>
+                    <th>First Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="author : ${authors}">
+                    <td th:text="${author.lastName}"></td>
+                    <td th:text="${author.firstName}"></td>
+                    <td><a th:href="@{/authors/edit/{authorId}(authorId=${author.id})}" class="btn btn-primary btn-sm"
+                           sec:authorize="hasRole('ADMIN')"><i
+                            class="fas fa-user-edit m-sm-2"></i></a>
+                        <a th:href="@{/authors/delete/{authorId}(authorId=${author.id})}" class="btn btn-primary  btn-sm"
+                           sec:authorize="hasRole('ADMIN')"><i
+                                class="fas fa-user-times m-sm-2"></i></a>
+                    </td>
+
+                    <!--       <td th:text="${book.type}? #{true} : #{false}">yes</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

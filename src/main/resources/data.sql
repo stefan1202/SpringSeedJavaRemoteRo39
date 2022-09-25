@@ -1,0 +1,1 @@
+insert into author values(1,'Stefan', 'Durla');
